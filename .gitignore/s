@@ -1,0 +1,98 @@
+https://melange-review.googlesource.com/q/status:open
+https://cla.developers.google.com/clas/new?domain=DOMAIN_GOOGLE&kind=KIND_INDIVIDUAL
+http://google.googlecode.com/svn/wiki 
+https://melange.googlesource.com/wiki/+/master/AccessControl.md
+https://gerrit-review.googlesource.com/Documentation/access-control.html#administrators
+
+https://melange-review.googlesource.com/static/cla.html
+/https://melange-review.googlesource.com/dashboard/self
+https://accounts.google.com/AccountChooser?service=gerritcodereview&continue=https://melange-review.googlesource.com/login/%2523%252Fregister%252Fadmin%252Frepos%252FAll-Projects%252Ccommands
+
+
+https://accounts.google.com/signin/v2/sl/pwd?service=gerritcodereview&passive=1209600&continue=https%3A%2F%2Fmelange-review.googlesource.com%2Flogin%2F%3Fcontinue%3D%25252Fadmin%25252Frepos%25252FAll-Projects%25252Ccommands%23&followup=https%3A%2F%2Fmelange-review.googlesource.com%2Flogin%2F%3Fcontinue%3D%25252Fadmin%25252Frepos%25252FAll-Projects%25252Ccommands&flowName=GlifWebSignIn&flowEntry=ServiceLogin
+
+https://accounts.google.com/ServiceLogin?service=gerritcodereview&passive=1209600&continue=https://melange-review.googlesource.com/login/?continue%3D%25252Fadmin%25252Frepos%25252FAll-Projects%25252Ccommands%23&followup=https://melange-review.googlesource.com/login/?continue%3D%25252Fadmin%25252Frepos%25252FAll-Projects%25252Ccommands
+
+
+
+# UUID                                                        	Group Name
+#
+global:Anonymous-Users                                        	Anonymous Users
+global:Project-Owners                                         	Project Owners
+global:Registered-Users                                       	Registered Users
+google:AI2Pq9r_ksT_hfUOny8swsG8krQwPL5eOM0hGHf4QWGOPdy9igqsdhs	google/google-union:signcla
+ldap:employees                                                	ldap/employees
+ldap:interns                                                  	ldap/interns
+mdb:gerritcodereview-admin                                    	mdb/gerritcodereview-admin
+mdb:opensource-outreach-eng-dev                               	mdb/opensource-outreach-eng-dev
+
+[project]
+	description = Access inherited by all other projects.
+[accounts]
+	sameGroupVisibility = deny group google/google-union:signcla
+[contributor-agreement "Google CLA"]
+	description = Google Contributor License Agreement
+	agreementUrl = static/cla.html
+	accepted = group google/google-union:signcla
+	accepted = group ldap/employees
+	accepted = group ldap/interns
+[receive]
+	requireContributorAgreement = true
+	requireSignedOffBy = false
+	requireChangeId = true
+[submit]
+	mergeContent = true
+[capability]
+	administrateServer = group mdb/opensource-outreach-eng-dev
+[access "refs/*"]
+	read = group Anonymous Users
+	read = group mdb/opensource-outreach-eng-dev
+[access "refs/for/refs/*"]
+	push = group Registered Users
+	pushMerge = group Registered Users
+[access "refs/heads/*"]
+	create = group Project Owners
+	create = group mdb/opensource-outreach-eng-dev
+	forgeAuthor = group Registered Users
+	forgeCommitter = group Project Owners
+	forgeCommitter = group mdb/opensource-outreach-eng-dev
+	push = group Project Owners
+	push = group mdb/opensource-outreach-eng-dev
+	label-Code-Review = -2..+2 group Project Owners
+	label-Code-Review = -2..+2 group mdb/opensource-outreach-eng-dev
+	label-Code-Review = -1..+1 group Registered Users
+	submit = group Project Owners
+	submit = group mdb/opensource-outreach-eng-dev
+	editTopicName = +force group Project Owners
+	editTopicName = +force group mdb/opensource-outreach-eng-dev
+[access "refs/meta/config"]
+	exclusiveGroupPermissions = read
+	read = group Project Owners
+	read = group mdb/gerritcodereview-admin
+	read = group mdb/opensource-outreach-eng-dev
+	push = group Project Owners
+	push = group mdb/opensource-outreach-eng-dev
+	label-Code-Review = -2..+2 group Project Owners
+	label-Code-Review = -2..+2 group mdb/opensource-outreach-eng-dev
+	submit = group Project Owners
+	submit = group mdb/opensource-outreach-eng-dev
+[access "refs/tags/*"]
+	createTag = group Project Owners
+	createTag = group mdb/opensource-outreach-eng-dev
+	createSignedTag = group Project Owners
+	createSignedTag = group mdb/opensource-outreach-eng-dev
+[label "Code-Review"]
+	function = MaxWithBlock
+	defaultValue = 0
+	copyMinScore = true
+	value = -2 This shall not be merged
+	value = -1 I would prefer this is not merged as is
+	value =  0 No score
+	value = +1 Looks good to me, but someone else must approve
+	value = +2 Looks good to me, approved
+	copyAllScoresOnTrivialRebase = true
+	copyAllScoresIfNoCodeChange = true
+[access "refs/for/*"]
+	addPatchSet = group Registered Users
+  
+  
